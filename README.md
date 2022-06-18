@@ -6,5 +6,6 @@ Some functional ideas to pursue and add to the current state of the script are:
  - Chance of player to return serve,
  - Maybe we can split the chances into three parameters: Serve, attack, defence,
  - Introduction of different play conditions (grass, clay and the other one).
+
 Some structural ideas to improve script readability are:
  - Split the Tennis_match class into subclasses: Point, Game, Set
