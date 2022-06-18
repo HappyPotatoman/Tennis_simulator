@@ -50,11 +50,15 @@ class Tennis_match:
         self.playerB = Player(probB)
         self.server = self.playerA 
         self.reciever = self.playerB
-        self.set_num = 1
+        self.set_num = [0, self.playerA]
+
+    def __str__(self) -> str:
+        return str
 
     def coin_toss(self):
         if random.uniform(0,1) <= 0.5:
             print(f'\n PlayerB has won the coin toss! \n')
+            self.set_num[1] = self.playerB
             self.server = self.playerB
             self.reciever = self.playerA
         else:
@@ -74,10 +78,10 @@ class Tennis_match:
             self.playerB.inc_games()
 
     def nextSet(self):
-        self.set_num += 1
+        self.set_num[0] += 1
 
     def Set_num(self):
-        return self.set_num
+        return self.set_num[0]
             
     def GameisOver(self):
         # The winner of a game is the first player to reach 4 point while the opponent has less than
@@ -113,7 +117,7 @@ class Tennis_match:
             self.playerA.inc_set()
         else:
             self.playerB.inc_set()
-        print('-----------------------')
+        print('---------------------------------')
 
     def SetisOver(self):
         a,b = self.getGames()
@@ -122,11 +126,19 @@ class Tennis_match:
     def getGames(self):
         return self.playerA.get_games(), self.playerB.get_games()
 
-    def print_game_score(match_res):
-        points_a,points_b = match_res.getPoints()
-        game_a,game_b = match_res.getGames()
-
-        print(f'A {points_a}:{points_b} B ==> {game_a}:{game_b}')
+    def print_game_score(self):
+        points_a,points_b = self.getPoints()
+        game_a,game_b = self.getGames()
+        server = self.getServer()
+        # Tennis_scores = {0:'0', 1: '15', 2: '30', 3:'40'}
+        # if points_a > points_b:
+        #     points_a = Tennis_scores.get(points_a, 'adv')
+        #     points_b = Tennis_scores.get(points_b, '40')
+        # else:
+        #     points_a = Tennis_scores.get(points_a, '40')
+        #     points_b = Tennis_scores.get(points_b, 'adv')
+            
+        print(f'A {points_a}:{points_b} B ==> {game_a}:{game_b} it was {server} to serve')
 
     def getSets(self):
         return self.playerA.get_set(), self.playerB.get_set()
@@ -137,10 +149,26 @@ class Tennis_match:
 
     def play(self):
         while not self.matchOver():
-            self.sim_set()
             self.nextSet()
+            self.sim_set()
             self.resetGames()
-            self.change_server() # Who has the frist serve?
+            self.swapFirstServe()
+
+    def getServer(self):
+        if self.server == self.playerA:
+            return 'PlayerA'
+        else:
+            return 'PlayerB'
+
+    def swapFirstServe(self):
+        if self.set_num[1] == self.playerA:
+            self.server = self.playerB
+            self.reciever = self.playerA
+            self.set_num[1] = self.playerB
+        else:
+            self.server = self.playerA
+            self.reciever = self.playerB   
+            self.set_num[1] = self.playerA
 
 def input_player():
     # Input chances of player to win point if he is serving
@@ -150,16 +178,12 @@ def input_player():
 
 def output(match_res):
     a,b = match_res.getSets()
-    num = match_res.Set_num()
     winner = 'PlayerA'
-    # Tennis_scores = {'0':0, '1': 15, '2': 30, '3':40}
-    # a = Tennis_scores.get(a, 'adv')
-    # b = Tennis_scores.get(b, 'adv')
     if a > b:
-        print(f'The winner of the {num}. set is: {winner} with the score: {a}:{b}')
+        print(f'{winner} wins with a score of {a}:{b}')
     else:
         winner = 'PlayerB'
-        print(f'The winner of the {num}. set is: {winner} with the score: {a}:{b}')
+        print(f'{winner} wins with a score of {a}:{b}')
 
 def main():
 
