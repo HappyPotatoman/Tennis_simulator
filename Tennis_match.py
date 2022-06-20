@@ -200,10 +200,43 @@ class Tennis_match:
             self.reciever = self.playerB   
             self.set_num[1] = self.playerA
 
+# class Stats:
+#     def __init__(self) -> None:
+#         self.points = 0
+#         self.games = 0
+#         self.set = 0
+#         self.stats = [[setA,setB],[gamesA,gamesB],[pointsA,pointsB]]
+
 def input_player():
     # Input chances of player to win point if he is serving
-    a = float(input('Define winning percentage of player A when serving: '))
-    b = float(input('Define winning percentage of player B when serving: '))
+    while True:
+        try:
+            a = float(input('Chance of player A to win point when serving: '))
+            if a >= 0 and a <= 1:
+                break
+            elif a >= 0 and a <= 100:
+                a /= 100
+                break
+            else:
+                print('Enter a number between 0 and 1')
+        except ValueError:
+            print("Enter a float between 0 and 1.")
+            continue
+    
+    while True:
+        try:
+            b = float(input('Chance of player B to win point when serving: '))
+            if b >= 0 and b <= 1:
+                break
+            elif b >= 0 and b <= 100:
+                b /= 100
+                break
+            else:
+                print('Enter a number between 0 and 1')
+        except ValueError:
+            print("Enter a float between 0 and 1.")
+            continue
+    
     return a,b
 
 def output(match_res):
