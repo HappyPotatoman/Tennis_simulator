@@ -1,7 +1,7 @@
 # Tennis_simulator
 It's a script that simulates tennis matches.
 
-Version 0.1.3: Improved probability input with error messages and option to input value as whole number or float. 
+Version 0.1.3: Improved probability input with error messages and option to input value as whole number or float. Display points of player serving first and of the defending player second.
 
 Version 0.1.2: Introduced tiebreaks at the ends of sets. If the match goes to 5 sets the tiebreaker is a first to 10 point game instead of a first to 7 point tiebreaker. Also cleaned up the code by introducing some new methods to eliminate code duplication and grouped the methods of the class Match to improve readability.
 

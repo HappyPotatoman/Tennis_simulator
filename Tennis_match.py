@@ -96,7 +96,7 @@ class Tennis_match:
             self.playerA.inc_set()
         else:
             self.playerB.inc_set()
-        print('---------------------------------')
+        print('----------------------------')
 
     def TiebreakGame(self):
         self.sim_point() # the first player has the first serve
@@ -119,9 +119,8 @@ class Tennis_match:
             self.playerA.inc_games()
         else:
             self.playerB.inc_games()
-        #print result of tiebreak
-        game_a,game_b = self.getGames()
-        print(f'A {a}:{b} B ==> {game_a}:{game_b} TIEBREAK')
+            
+        self.print_game_score()
             
     def play(self):
         while not self.matchOver():
@@ -172,8 +171,10 @@ class Tennis_match:
     def print_game_score(self):
         points_a,points_b = self.getPoints()
         game_a,game_b = self.getGames()
-        server = self.getServer()
-        print(f'A {points_a}:{points_b} B ==> {game_a}:{game_b} it was {server} to serve')
+        if self.server == self.playerA:
+            print(f'A {points_a}:{points_b} B ==> {game_a}:{game_b}')
+        else:
+            print(f'B {points_b}:{points_a} A ==> {game_a}:{game_b}')
         
     def change_server(self):
         # Change who has the serve and who recieves the serve
@@ -184,12 +185,6 @@ class Tennis_match:
             self.server = self.playerA
             self.reciever = self.playerB
 
-    def getServer(self):
-        if self.server == self.playerA:
-            return 'PlayerA'
-        else:
-            return 'PlayerB'
-
     def swapFirstServe(self):
         if self.set_num[1] == self.playerA:
             self.server = self.playerB
@@ -199,13 +194,6 @@ class Tennis_match:
             self.server = self.playerA
             self.reciever = self.playerB   
             self.set_num[1] = self.playerA
-
-# class Stats:
-#     def __init__(self) -> None:
-#         self.points = 0
-#         self.games = 0
-#         self.set = 0
-#         self.stats = [[setA,setB],[gamesA,gamesB],[pointsA,pointsB]]
 
 def input_player():
     # Input chances of player to win point if he is serving
@@ -239,14 +227,13 @@ def input_player():
     
     return a,b
 
-def output(match_res):
-    a,b = match_res.getSets()
-    winner = 'PlayerA'
+def output(game):
+    a,b = game.getSets()
     if a > b:
-        print(f'{winner} wins with a score of {a}:{b}')
+        winner = 'PlayerA'
     else:
         winner = 'PlayerB'
-        print(f'{winner} wins with a score of {a}:{b}')
+    print(f'{winner} wins {a}:{b}') # add game splits
 
 def main():
 
