@@ -1,5 +1,5 @@
 # Tennis_simulator
-It's a script that simulates tennis matches.
+It's a script that simulates tennis matches. Feel free to try it out!
 
 Version 0.1.3: Improved probability input with error messages and option to input value as whole number or float. Display points of player serving first and of the defending player second.
 
