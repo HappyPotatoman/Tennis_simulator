@@ -57,7 +57,7 @@ class Tennis_match:
 
     def coin_toss(self):
         if random.uniform(0,1) < 0.5:
-            print(f'\n PlayerB has won the coin toss! \n')
+            print(f'\nPlayerB has won the coin toss!\n')
             self.set_num[1] = self.playerB
             self.server = self.playerB
             self.reciever = self.playerA
@@ -83,7 +83,6 @@ class Tennis_match:
     def sim_set(self):
         while not self.SetisOver():
             self.sim_game()
-            self.print_game_score()
             self.resetPoints()
             self.change_server()
         # if games are tied at 6-6 play tiebreaker
@@ -96,7 +95,8 @@ class Tennis_match:
             self.playerA.inc_set()
         else:
             self.playerB.inc_set()
-        print('----------------------------')
+            
+        self.print_game_score()
 
     def TiebreakGame(self):
         self.sim_point() # the first player has the first serve
@@ -120,7 +120,7 @@ class Tennis_match:
         else:
             self.playerB.inc_games()
             
-        self.print_game_score()
+        # self.print_game_score()
             
     def play(self):
         while not self.matchOver():
@@ -169,12 +169,8 @@ class Tennis_match:
         self.set_num[0] += 1
 
     def print_game_score(self):
-        points_a,points_b = self.getPoints()
         game_a,game_b = self.getGames()
-        if self.server == self.playerA:
-            print(f'A {points_a}:{points_b} B ==> {game_a}:{game_b}')
-        else:
-            print(f'B {points_b}:{points_a} A ==> {game_a}:{game_b}')
+        print(f'PlayerA  {game_a} : {game_b}  PlayerB')
         
     def change_server(self):
         # Change who has the serve and who recieves the serve
@@ -233,9 +229,10 @@ def output(game):
         winner = 'PlayerA'
     else:
         winner = 'PlayerB'
-    print(f'{winner} wins {a}:{b}') # add game splits
 
-def main():
+    print(f'\n{winner} wins {a}:{b} \n\n') # add game splits
+
+def playMatch():
 
     ProbA, ProbB = input_player()
     Game = Tennis_match(ProbA, ProbB)
@@ -244,4 +241,4 @@ def main():
     output(Game)
 
 if __name__ == '__main__':
-    main()
+    playMatch()
